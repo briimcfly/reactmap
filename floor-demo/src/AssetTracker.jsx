@@ -103,13 +103,11 @@ const AssetTracker = () => {
 
     ];
 
-    // Fetch people locations from your API
     const fetchPeopleLocations = async () => {
         try {
             const response = await fetch('https://bay4.4insite.com/api/geofence/employee/current-area/?contract_id=259&employee_ids=131218%2C6711');
             const data = await response.json();
             
-            // Transform the API response to match our component's expected format
             const transformedData = data.check_ins.flatMap(checkIn => {
                 if (!checkIn.employee || !checkIn.current_area) return [];
                 
@@ -130,12 +128,10 @@ const AssetTracker = () => {
 
     useEffect(() => {
         fetchPeopleLocations();
-        // Poll for updates every 5 seconds
         const interval = setInterval(fetchPeopleLocations, 5000);
         return () => clearInterval(interval);
     }, []);
 
-    // Get people in a specific area
     const getPeopleInArea = (areaId) => {
         return peopleLocations.filter(person => person.areaId === areaId);
     };
