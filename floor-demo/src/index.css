@@ -1,0 +1,110 @@
+.asset-tracker {
+  padding: 20px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.asset-tracker h1 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.floor-plan {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 equal columns */
+  grid-template-rows: repeat(4, 180px);  /* 4 rows, 180px each */
+  gap: 12px;
+  width: 100%;
+  max-width: 1400px;
+  background: #f5f5f5;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.area {
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 140px;
+}
+
+.area.occupied {
+  background: #e3f2fd;
+  border-color: #2196F3;
+  box-shadow: 0 0 20px rgba(33, 150, 243, 0.5),
+              0 0 40px rgba(33, 150, 243, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(33, 150, 243, 0.5),
+                0 0 40px rgba(33, 150, 243, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(33, 150, 243, 0.7),
+                0 0 60px rgba(33, 150, 243, 0.5);
+  }
+}
+
+.area-name {
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.area-type {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.area.occupied .area-name {
+  color: #1976D2;
+}
+
+.area.occupied .area-type {
+  color: #1976D2;
+}
+
+.people-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.person-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2196F3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.person-avatar:hover {
+  transform: scale(1.1);
+}
+
+.occupancy-count {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+  font-style: italic;
+}
