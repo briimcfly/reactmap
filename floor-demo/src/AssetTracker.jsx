@@ -107,23 +107,26 @@ const AssetTracker = () => {
 
     ];
 
-    // Mock API call - replace with your actual API endpoint
+    // Fetch people locations from your API
     const fetchPeopleLocations = async () => {
         try {
-            // Replace this URL with your actual backend endpoint
-            // const response = await fetch('YOUR_API_ENDPOINT');
-            // const data = await response.json();
-            // setPeopleLocations(data);
-
-            // Mock data for demonstration
-            const mockData = [
-                { id: 1, name: 'Alice', avatar: 'A', areaId: '4insite-lobby' },
-                { id: 2, name: 'Bob', avatar: 'B', areaId: 'office-1' },
-                { id: 3, name: 'Charlie', avatar: 'C', areaId: 'dz-zen-den' },
-                { id: 4, name: 'Diana', avatar: 'D', areaId: 'dz-zen-den' },
-                { id: 5, name: 'Eve', avatar: 'E', areaId: 'front-room-cubicle-farm' },
-            ];
-            setPeopleLocations(mockData);
+            const response = await fetch('YOUR_API_ENDPOINT_HERE');
+            const data = await response.json();
+            
+            // Transform the API response to match our component's expected format
+            const transformedData = data.check_ins.flatMap(checkIn => {
+                if (!checkIn.employee || !checkIn.current_area) return [];
+                
+                return {
+                    id: checkIn.employee.id,
+                    name: `${checkIn.employee.first_name} ${checkIn.employee.last_name}`,
+                    avatar: checkIn.employee.first_name.charAt(0).toUpperCase(),
+                    areaId: checkIn.current_area.id.toString(), // Use the area ID directly
+                    photoUrl: checkIn.employee.photo_url || null
+                };
+            });
+            
+            setPeopleLocations(transformedData);
         } catch (error) {
             console.error('Error fetching people locations:', error);
         }
@@ -163,7 +166,11 @@ const AssetTracker = () => {
                             <div className="people-container">
                                 {peopleInArea.map(person => (
                                     <div key={person.id} className="person-avatar" title={person.name}>
-                                        {person.avatar}
+                                        {person.photoUrl ? (
+                                            <img src={person.photoUrl} alt={person.name} className="avatar-image" />
+                                        ) : (
+                                            person.avatar
+                                        )}
                                     </div>
                                 ))}
                             </div>
