@@ -138,7 +138,7 @@ const AssetTracker = () => {
 
     return (
         <div className="asset-tracker">
-            <h1>4invasion of Privacy</h1>
+            <h1>4insite Office • User Location Demo</h1>
             <div className="floor-plan">
                 {areas.map(area => {
                     const peopleInArea = getPeopleInArea(area.id);
