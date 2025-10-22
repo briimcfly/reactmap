@@ -105,7 +105,7 @@ const AssetTracker = () => {
 
     const fetchPeopleLocations = async () => {
         try {
-            const response = await fetch('https://bay4.4insite.com/api/geofence/employee/current-area/?contract_id=259&employee_ids=131218%2C6711');
+            const response = await fetch('https://bay4.4insite.com/api/geofence/employee/current-area/?contract_id=259&employee_ids=131218%2C6711%2C135432%2C86143');
             const data = await response.json();
             
             const transformedData = data.check_ins.flatMap(checkIn => {
