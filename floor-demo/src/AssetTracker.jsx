@@ -107,10 +107,10 @@ const AssetTracker = () => {
         try {
             const response = await fetch('https://bay4.4insite.com/api/geofence/employee/current-area/?contract_id=259&employee_ids=131218%2C6711%2C135432%2C86143');
             const data = await response.json();
-            
+
             const transformedData = data.check_ins.flatMap(checkIn => {
                 if (!checkIn.employee || !checkIn.current_area) return [];
-                
+
                 return {
                     id: checkIn.employee.id,
                     name: `${checkIn.employee.first_name} ${checkIn.employee.last_name}`,
@@ -119,7 +119,7 @@ const AssetTracker = () => {
                     photoUrl: checkIn.employee.photo_url || null
                 };
             });
-            
+
             setPeopleLocations(transformedData);
         } catch (error) {
             console.error('Error fetching people locations:', error);
@@ -158,11 +158,15 @@ const AssetTracker = () => {
                             <div className="people-container">
                                 {peopleInArea.map(person => (
                                     <div key={person.id} className="person-avatar" title={person.name}>
-                                        {/* {person.photoUrl ? (
-                                            <img src={person.photoUrl} alt={person.name} className="avatar-image" />
-                                        ) : ( */}
-                                            {person.avatar}
-                                        {/* )} */}
+                                        {person.photoUrl ? (
+                                            <img
+                                                src={person.photoUrl ? `https://devcdn.4insite.com/${person.photoUrl}` : '/default-avatar.png'}
+                                                alt={person.name || 'User'}
+                                                className="avatar-image"
+                                            />
+                                        ) : (
+                                            person.avatar
+                                        )}
                                     </div>
                                 ))}
                             </div>
